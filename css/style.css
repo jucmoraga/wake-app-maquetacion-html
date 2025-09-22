@@ -1,0 +1,261 @@
+html {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(
+    to bottom, 
+    rgba(242, 220, 233, 1) 0%,  
+    rgba(240, 245, 247, 1) 25%,  
+    rgba(191, 212, 227, 1) 100%
+  );
+  background-attachment: fixed; 
+}
+
+button{
+    background-color: #465375;
+    color: white;
+    font-family: 'Lucida Sans';
+    font-size: 100%;
+    border: none;
+    cursor: pointer;
+    padding: 0%;
+
+}
+
+h1{
+    font-family: 'Lucida Sans';
+    font-size: 3vw;
+    color: #465375;
+    text-align: center;
+    margin-top: 5%;
+}
+
+#pantalla_inicio{
+    width: 100%;
+    height: 100%;
+}
+
+    #pantalla_inicio a{
+        position: absolute;
+        top: 50%;
+        left: 65%;
+        font-family: 'Lucida Sans';
+        font-size: 100%;
+        font-weight: bold;
+        text-decoration: none;
+        color: #465375;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    #pantalla_inicio.disabled{
+        display: none;
+    }
+
+.logo_principal{
+    content: url("../images/logo.png");
+    width: 50%;
+    position: relative;
+}
+
+.user_card{
+    width: 20%;
+    height: 8%;
+    border-color: #465375;
+    border-style: solid;
+    border-width: 3px;
+    display: flex;
+    flex-direction: row;
+}
+
+    .user_card.inicial{
+        position: absolute;
+        top: 40%;
+        left: 60%;
+        cursor: pointer;
+    }
+
+    .user_card.config{
+        margin-left: 40%;
+        margin-bottom: 1%;
+        cursor: pointer;
+    }
+
+
+    .user_card ul{
+        max-height: 100%;
+        height: 100%;
+        position: relative;
+        margin-top: 0%;
+        padding: 0px;
+        margin-left: 16px;
+        top: 20%;
+        left: 0%;
+        list-style-type: none;
+    }
+
+    .user_card ul li:first-child{
+        font-family: 'Lucida Sans';
+        font-size: 100%;
+    }
+
+    .user_card ul li:last-child{
+        font-family: 'Lucida Sans';
+        font-size: 60%;
+        color: grey;
+    }
+
+.user_image{
+    content: url("../images/user_image.png");
+    position: relative;
+    top: 25%;
+    left: 2%;
+    height: 50%;
+}   
+
+#modal_google{
+    display: none; 
+    position: absolute;
+    z-index: 1;
+    top: 10%;
+    left: 35%;
+    width: 30%;
+    height: 80%;
+    background-color: white;
+    border: 1px solid black;
+}
+
+    #modal_google.active{
+        display: grid; 
+    }
+
+    #modal_google img{
+        content: url("../images/google_auth.png");
+        width: 80%;
+        height: auto;
+        position: relative;
+        top: 5%;
+        left: 10%;
+    }
+
+    #modal_google button{
+        width: 60%;
+        height: 20%;
+        margin-top: 1%;
+        margin-bottom: 1%;
+        border-radius: 20px;
+        position: relative;
+        left: 20%;
+    }
+
+#vista_principal{
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+    #vista_principal.active{
+        display: flex;
+    }
+
+    #vista_principal img{
+        margin-left: 35%;
+    }
+
+#barra_navegacion{
+    width: 20%;
+    height: 100%;
+    background-color: #959BBD;
+    position: fixed;
+    display: block;
+}
+
+    #barra_navegacion.disabled{
+        display: none; 
+    }
+
+    #barra_navegacion ul{
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        top: 0%;
+        left: 0%;
+        width: 100%;
+        height: 80%;
+
+    }
+
+    #barra_navegacion ul li{
+        width: 100%;
+        height: 25%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Lucida Sans';
+        font-size: 2vw;
+        font-weight: bolder;
+        border: #465375 solid 1px;
+        color: #465375;
+        padding: 0px;
+        background-color: #EFF4F8;
+        cursor: pointer;
+    }
+
+    #barra_navegacion ul li.active{
+        background-color: #465375;
+        color: white;
+    }
+
+#configuracion{
+    display: none;
+    width: 80%;
+    height: 100%;
+    position: absolute;
+    top: 0%;
+    left: 20%;
+}
+
+    #configuracion.active{
+        display: block; 
+    }
+
+#alarmas{
+    display: none;
+    width: 80%;
+    height: 100%;
+    position: absolute;
+    top: 0%;
+    left: 20%;
+}
+
+    #alarmas.active{
+        display: block; 
+    }
+
+#tareas{
+    display: none;
+    width: 80%;
+    height: 100%;
+    position: absolute;
+    top: 0%;
+    left: 20%;
+}
+
+    #tareas.active{
+        display: block; 
+    }
+
+#estadisticas{
+    display: none;
+    width: 80%;
+    height: 100%;
+    position: absolute;
+    top: 0%;
+    left: 20%;
+}
+
+    #estadisticas.active{
+        display: block; 
+    }
