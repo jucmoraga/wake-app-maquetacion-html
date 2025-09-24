@@ -21,8 +21,72 @@ button{
     font-size: 100%;
     border: none;
     cursor: pointer;
-    padding: 0%;
+    padding: 0.5%;
+    width: 30%;
+    height: 5%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    border-radius: 20px;
+    position: relative;
+}
 
+form{
+    display: flex;
+    flex-direction: row;
+    max-width: 80%;
+    width: 80%;
+    height: 100%;
+}
+
+.column{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    align-items: flex-start;
+    justify-content: top;
+    margin-left: 10%;
+}
+
+.contenedor{
+    border: #465375 solid 1px;
+    border-radius: 8px;
+    background-color: transparent;
+    margin-bottom: 3%;
+    width: 100%;
+}
+
+label{
+    font-family: 'Lucida Sans';
+    font-size: 120%;
+    font-weight: bold;
+    color: #465375;
+}
+
+input{
+    font-family: 'Lucida Sans';
+    font-size: 100%;
+    padding: 0.5%;
+    margin-top: 1%;
+    margin-bottom: 3%;
+    width: 100%;
+    background-color: transparent;
+    border: #465375 solid 1px;
+    border-radius: 8px;
+}
+
+textarea{
+    font-family: 'Lucida Sans';
+    font-size: 100%;
+    padding: 0.5%;
+    margin-top: 1%;
+    margin-bottom: 3%;
+    width: 100%;
+    height: 20%;
+    background-color: transparent;
+    border: #465375 solid 1px;
+    border-radius: 8px;
+    resize: none;
 }
 
 h1{
@@ -30,6 +94,15 @@ h1{
     font-size: 3vw;
     color: #465375;
     text-align: center;
+    margin-top: 5%;
+}
+
+h2{
+    font-family: 'Lucida Sans';
+    font-size: 2vw;
+    color: #465375;
+    text-align: center;
+    width: 100%;
     margin-top: 5%;
 }
 
@@ -143,11 +216,7 @@ h1{
 
     #modal_google button{
         width: 60%;
-        height: 20%;
-        margin-top: 1%;
-        margin-bottom: 1%;
-        border-radius: 20px;
-        position: relative;
+        height: 25%;
         left: 20%;
     }
 
@@ -231,7 +300,84 @@ h1{
 }
 
     #alarmas.active{
-        display: block; 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+#lista_alarmas{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+}
+
+.alarm_card{
+    width: 40%;
+    height: 20%;
+    padding: 1%;
+    margin-bottom: 2%;
+    border-color: #465375;
+    border-style: solid;
+    border-width: 3px;
+    display: flex;
+    flex-direction: row;
+}
+
+    .alarm_card ul{
+        max-height: 100%;
+        height: 100%;
+        position: relative;
+        margin-top: 0%;
+        padding: 0px;
+        margin-left: 16px;
+        top: 0%;
+        left: 0%;
+        list-style-type: none;
+    }
+
+    .alarm_card ul li:first-child{
+        font-family: 'Lucida Sans';
+        font-size: 100%;
+    }
+
+    .alarm_card ul li:last-child{
+        font-family: 'Lucida Sans';
+        font-size: 60%;
+        color: grey;
+    }
+
+.alarm_image{
+    background-color: #465375;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 8%;
+    aspect-ratio: 1 / 1;
+    border-radius: 100%;
+    font-family: 'lucida sans';
+    color: white;
+}
+
+    .alarm_image.inactive{
+        background-color: #EFF4F8;
+        color: black;
+        border: black solid 1px;
+    }
+
+#crear_alarma{
+    display: none;
+    width: 80%;
+    height: 100%;
+    position: absolute;
+    top: 0%;
+    left: 20%;
+}
+    #crear_alarma.active{
+        display: flex;
+        flex-direction: column;
+        align-items: right;
     }
 
 #tareas{

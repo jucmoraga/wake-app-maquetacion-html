@@ -57,6 +57,37 @@
     </div>
     <div id="alarmas">
         <h1>ALARMAS</h1>
+        <ul id="lista_alarmas">
+        </ul>
+        <button id="add_alarma">Crear Alarma</button>
+    </div>
+    <div id="crear_alarma">
+        <h1>CREAR ALARMA</h1>
+        <div>switch</div>
+        <form>
+            <div class="column">
+                <label>Nombre:</label>
+                <input type="text" name="nombre_alarma" placeholder="Nombre de la alarma">
+                <label>Hora de Inicio:</label>
+                <div class = "contenedor"></div>
+                <label>Descripción:</label>
+                <textarea name="descripcion_alarma" placeholder="Descripción de la alarma"></textarea>
+                <label>Fecha Activación</label>
+                <input type="text" name="fecha_activacion" placeholder="Fecha de activación">
+                <label>Fecha Suspensión</label>
+                <input type="text" name="fecha_suspension" placeholder="Fecha de suspensión">
+                <h2>TAREAS</h2>
+            </div>
+            <div class="column">
+                <label>Modo de Apagado:</label>
+                <label>Seguimiento de Tareas:</label>
+                <label>Recurrente:</label>
+                <button>Crear Tarea</button>
+                <button>Eliminar Tarea</button>
+                <button>Guardar Alarma</button>
+                <button>Cancelar</button>
+            </div>
+        </form>
     </div>
     <div id="tareas">
         <h1>TAREAS</h1>
