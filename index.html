@@ -20,7 +20,7 @@
         </div>
         <a>Vincular Cuenta</a>
     </div>
-    <div id = "modal_google">  
+    <div id = "modal_google" class="modal">  
         <img>
         <div>
             <button id="mg_continuar">Continuar</button>
@@ -63,34 +63,164 @@
     </div>
     <div id="crear_alarma">
         <h1>CREAR ALARMA</h1>
-        <div>switch</div>
+        <div class="switch">
+            <img class ="on">
+            <h4>Activa</h4>
+        </div>
         <form>
             <div class="column">
-                <label>Nombre:</label>
+                <label for="nombre_alarma">Nombre:</label>
                 <input type="text" name="nombre_alarma" placeholder="Nombre de la alarma">
-                <label>Hora de Inicio:</label>
-                <div class = "contenedor"></div>
-                <label>Descripción:</label>
+                <label for="hora_inicio">Hora de Inicio:</label>
+                <div class = "contenedor">
+                    <div class="input_hora">
+                        <input type="number" name="hora_inicio" min="0" max="12" placeholder="HH">
+                        <img class="separador">
+                        <input type="number" name="minuto_inicio" min="0" max="59" placeholder="MM">
+                        <img id="boton_am_pm" class="am">
+                    </div>
+                </div>
+                <label for="descripcion_alarma">Descripción:</label>
                 <textarea name="descripcion_alarma" placeholder="Descripción de la alarma"></textarea>
-                <label>Fecha Activación</label>
-                <input type="text" name="fecha_activacion" placeholder="Fecha de activación">
-                <label>Fecha Suspensión</label>
-                <input type="text" name="fecha_suspension" placeholder="Fecha de suspensión">
+                <label for="fecha_activacion">Fecha Activación</label>
+                <input type="date" name="fecha_activacion" placeholder="Fecha de activación">
+                <label for="fecha_suspension">Fecha Suspensión</label>
+                <input type="date" name="fecha_suspension" placeholder="Fecha de suspensión">
                 <h2>TAREAS</h2>
+                <ul id="lista_tareas_alarma">
+                </ul>
             </div>
             <div class="column">
                 <label>Modo de Apagado:</label>
+                <div class="contenedor">
+                    <table id="tabla_modo_apagado" class="opciones">
+                        <tr>
+                            <td><input type="radio" name="modo_apagado" value="manual" checked></td>
+                            <td>Actividad Física</td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" name="modo_apagado" value="repetir"></td>
+                            <td>Comando de Voz</td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" name="modo_apagado" value="tareas"></td>
+                            <td>Normal</td>
+                        </tr>
+                    </table>
+                </div>
                 <label>Seguimiento de Tareas:</label>
+                    <div class="contenedor">
+                        <table id="tabla_seguimiento_tareas" class="opciones">
+                            <tr>
+                                <td><input type="radio" name="seguimiento_tareas" value="manual" checked></td>
+                                <td>Si</td>
+                            </tr>
+                            <tr>
+                                <td><input type="radio" name="seguimiento_tareas" value="repetir"></td>
+                                <td>No</td>
+                            </tr>
+                        </table>
+                    </div>
                 <label>Recurrente:</label>
-                <button>Crear Tarea</button>
-                <button>Eliminar Tarea</button>
-                <button>Guardar Alarma</button>
-                <button>Cancelar</button>
+                    <div class="contenedor">
+                        <table id="tabla_recurrente">
+                            <tr>
+                                <td><input type="checkbox" name="Lunes" value="manual"></td>
+                                <td>Lunes</td>
+                                <td><input type="checkbox" name="Martes" value="manual"></td>
+                                <td>Martes</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" name="Miercoles" value="manual"></td>
+                                <td>Miércoles</td>
+                                <td><input type="checkbox" name="Jueves" value="manual"></td>
+                                <td>Jueves</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" name="Viernes" value="manual"></td>
+                                <td>Viernes</td>
+                                <td><input type="checkbox" name="Sabado" value="manual"></td>
+                                <td>Sábado</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" name="Domingo" value="manual"></td>
+                                <td>Domingo</td>
+                            </tr>
+                        </table>
+                    </div>
+                <div class="button_container">
+                    <button id="btn_agregar_tarea" type="button" class="formbutton">Agregar Tarea</button>
+                    <button id="btn_eliminar_tarea" type="button" class="formbutton">Remover Tarea</button>
+                    <button id="btn_guardar_alarma" type="button" class="formbutton">Guardar Alarma</button>
+                    <button id="btn_editar_alarma" type="button" class="formbutton">Guardar Cambios</button>
+                    <button id="btn_eliminar_alarma" type="button" class="formbutton">Eliminar Alarma</button>
+                    <button id="btn_cancelar" type="button" class="formbutton">Cancelar</button>
+                </div>
             </div>
         </form>
     </div>
+    <div id="modal_seleccionar_tareas" class="modal">
+        <h2>TAREAS CREADAS</h2>
+        <div class="tareas_modal_contenedor">
+            <ul id="lista_tareas_modal">
+            </ul>
+        </div>
+        <div class="button_container">
+            <button id="mst_cancelar" class="formbutton">Cancelar</button>
+        </div>
+    </div>
     <div id="tareas">
         <h1>TAREAS</h1>
+        <ul id="lista_tareas">
+        </ul>
+        <button id="add_tarea">Crear Tarea</button>
+    </div>
+    <div id="modal_crear_tarea" class="modal">
+        <h2>CREAR TAREA</h2>
+        <div class ="crear_tarea_contenedor">
+            <form class="form_tarea">
+                    <label for="nombre_tarea">Nombre:</label>
+                    <input type="text" name="nombre_tarea" placeholder="Nombre de la tarea">
+                    <label for="duracion_tarea">Duración:</label>
+                        <div class="contenedor">
+                            <div class="input_hora duracion">
+                                <input type="number" name="horas" min="0" max="12" placeholder="HH">
+                                <img class="separador">
+                                <input type="number" name="minutos" min="0" max="59" placeholder="MM">
+                            </div>
+                        </div>
+                    <label for="descripcion_tarea">Descripción:</label>
+                    <textarea name="descripcion_tarea" placeholder="Descripción de la tarea"></textarea>
+            </form>
+        </div>
+        <div class="button_container">
+            <button id="mt_guardar" class=>Guardar Tarea</button>
+            <button id="mt_cancelar" class=>Cancelar</button>
+        </div>
+    </div>
+    <div id="modal_editar_tarea" class="modal">
+        <h2>EDITAR TAREA</h2>
+        <div class ="crear_tarea_contenedor">
+            <form class="form_tarea">
+                    <label for="nombre_tarea">Nombre:</label>
+                    <input type="text" name="editar_nombre_tarea" placeholder="Nombre de la tarea">
+                    <label for="duracion_tarea">Duración:</label>
+                        <div class="contenedor">
+                            <div class="input_hora duracion">
+                                <input type="number" name="editar_horas" min="0" max="12" placeholder="HH">
+                                <img class="separador">
+                                <input type="number" name="editar_minutos" min="0" max="59" placeholder="MM">
+                            </div>
+                        </div>
+                    <label for="descripcion_tarea">Descripción:</label>
+                    <textarea name="editar_descripcion_tarea" placeholder="Descripción de la tarea"></textarea>
+            </form>
+        </div>
+        <div class="button_container">
+            <button id="met_guardar" class=>Guardar Cambios</button>
+            <button id="met_eliminar" class=>Eliminar Tarea</button>
+            <button id="met_cancelar" class=>Cancelar</button>
+        </div>
     </div>
     <div id="estadisticas">
         <h1>ESTADÍSTICAS</h1>
