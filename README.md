@@ -5,7 +5,7 @@
 ### Descargue el proyecto: 
 Puede optar por ir a la opción `<>Code` y descargar directamente el contenido del proyecto
 
-También puede clonar el repositorio con el comando `git clone https://github.com/NeiderFajardoUdeA/wake-app-mobile.git`
+También puede clonar el repositorio con el comando `git clone https://github.com/jucmoraga/wake-app-maquetacion-html.git`
 
 ### Abra la página web
 Una vez descargado el contenido del proyecto, basta con abrir el archivo "index.html" y empezar a navegar.
