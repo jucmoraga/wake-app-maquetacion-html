@@ -95,15 +95,15 @@
                 <div class="contenedor">
                     <table id="tabla_modo_apagado" class="opciones">
                         <tr>
-                            <td><input type="radio" name="modo_apagado" value="manual" checked></td>
+                            <td><input type="radio" name="modo_apagado" value=1 checked></td>
                             <td>Actividad Física</td>
                         </tr>
                         <tr>
-                            <td><input type="radio" name="modo_apagado" value="repetir"></td>
+                            <td><input type="radio" name="modo_apagado" value=2></td>
                             <td>Comando de Voz</td>
                         </tr>
                         <tr>
-                            <td><input type="radio" name="modo_apagado" value="tareas"></td>
+                            <td><input type="radio" name="modo_apagado" value=3></td>
                             <td>Normal</td>
                         </tr>
                     </table>
@@ -112,11 +112,11 @@
                     <div class="contenedor">
                         <table id="tabla_seguimiento_tareas" class="opciones">
                             <tr>
-                                <td><input type="radio" name="seguimiento_tareas" value="manual" checked></td>
+                                <td><input type="radio" name="opcion_seguir_tareas" value="si" checked></td>
                                 <td>Si</td>
                             </tr>
                             <tr>
-                                <td><input type="radio" name="seguimiento_tareas" value="repetir"></td>
+                                <td><input type="radio" name="opcion_seguir_tareas" value="no"></td>
                                 <td>No</td>
                             </tr>
                         </table>
@@ -224,6 +224,21 @@
     </div>
     <div id="estadisticas">
         <h1>ESTADÍSTICAS</h1>
+        <h2 id="nombre_estadistica">Trabajo</h2>
+        <img>
+        <p>Hora promedio: 00:00 am</p>
+        <p>Duración promedio 00:00 horas</p>
+        <button id="cambiar_estadistica">Cambiar Estadística</button>
+    </div>
+    <div id="modal_cambiar_estadistica" class="modal">
+        <h2>SELECCIONAR ESTADÍSTICA</h2>
+        <div id="estadisticas_modal_contenedor">
+            <ul id="lista_estadisticas_modal">
+            </ul>
+        </div>
+        <div class="button_container">
+            <button id="mce_cancelar" class="formbutton">Cancelar</button>
+        </div>
     </div>
 </body>
 </html>

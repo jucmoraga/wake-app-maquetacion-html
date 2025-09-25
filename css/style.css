@@ -348,6 +348,13 @@ h3{
     cursor: pointer;
 }
 
+    .alarm_card.modal{
+        width: 100%;
+        height: 30%;
+        position: relative;
+        left: 0%;
+    }
+
     .alarm_card ul{
         max-height: 100%;
         height: 100%;
@@ -460,7 +467,6 @@ td{
 }
 
 input[type="radio"] {
-    background-color: transparent;
     margin-top: 2px;
     width: 15px;
     height: 15px;
@@ -500,6 +506,7 @@ table.opciones td:first-child{
         flex-direction: column;
         align-items: right;
     }
+
 
 #tareas{
     display: none;
@@ -653,5 +660,38 @@ table.opciones td:first-child{
 }
 
     #estadisticas.active{
-        display: block; 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
+
+    #estadisticas h2{
+        margin-top: 1%;
+        margin-bottom: 2%;
+    }
+
+    #estadisticas img{
+        width: 50%;
+        content: url("../images/stats.png");
+    }
+
+    #estadisticas p{
+        font-family: 'Lucida Sans';
+        font-size: 120%;
+        color: #465375;
+        margin: 0;
+    }
+
+#estadisticas_modal_contenedor{
+        width: 80%;
+        height: 70%;
+        margin-left: 10%;
+}
+
+
+#lista_estadisticas_modal{
+    margin: 0;
+    padding: 0;
+    width: 90%;
+}
+

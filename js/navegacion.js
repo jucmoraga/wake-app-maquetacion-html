@@ -35,8 +35,8 @@ $(document).ready(function() {
     function initialize(){
         alarmas = [
             new Alarma(nombre="Trabajo", hora="07", minuto="30", periodo="AM", descripcion="Inicio de la jornada", fecha_activacion="2025-01-01", fecha_suspension= "2025-12-31",modo_apagado=1, seguimiento_tareas=true, frecuencia="Lunes, Martes, Miercoles, Viernes", activa=true, tareas_asociadas=[1,2]), 
-            new Alarma(nombre="Gimnasio", hora="06", minuto="00", periodo="PM", descripcion="Hora de ir al gimnasio", fecha_activacion="2025-01-01", modo_apagado=2, seguimiento_tareas=true, frecuencia="Lunes, Miercoles, Viernes", activa=true, tareas_asociadas=[3,4]),
-            new Alarma(nombre="Compras", hora="10", minuto="00", periodo="AM", descripcion="Hora de hacer las compras", fecha_activacion="2025-01-01", modo_apagado=3, seguimiento_tareas=true, frecuencia="Domingo", activa=false, tareas_asociadas=[4])
+            new Alarma(nombre="Gimnasio", hora="06", minuto="00", periodo="PM", descripcion="Hora de ir al gimnasio", fecha_activacion="2025-01-01", fecha_suspension="2025-12-31", modo_apagado=2, seguimiento_tareas=false, frecuencia="Lunes, Miercoles, Viernes", activa=true, tareas_asociadas=[3,4]),
+            new Alarma(nombre="Compras", hora="10", minuto="00", periodo="AM", descripcion="Hora de hacer las compras", fecha_activacion="2025-01-01", fecha_suspension="2025-12-31", modo_apagado=3, seguimiento_tareas=true, frecuencia="Domingo", activa=false, tareas_asociadas=[4])
         ];
 
         tareas = [
@@ -50,7 +50,7 @@ $(document).ready(function() {
     function cargar_alarmas(){
         $("#lista_alarmas").empty();
         for(let alarma of alarmas){
-            let nuevo_div = $("<div></div>").addClass("alarm_card");
+            let nuevo_div = $("<div></div>").addClass("alarm_card principal");
             let img = $("<div>"+alarma.nombre.charAt(0)+"</div>").addClass("alarm_image");
             if(!alarma.activa){
                 img.addClass("inactive");
@@ -304,7 +304,36 @@ $(document).ready(function() {
 
         let opciones_apagado = $("input[type='radio'][name='modo_apagado']");
         opciones_apagado.prop("checked", false);
+        opciones_apagado.eq(alarma_seleccionada.modo_apagado - 1).prop("checked", true);
 
+
+        let opciones_seguimiento = $("input[type='radio'][name='opcion_seguir_tareas']");
+        opciones_seguimiento.prop("checked", false);
+        if(alarma_seleccionada.seguimiento_tareas){
+            opciones_seguimiento.eq(0).prop("checked", true);
+        } else {
+            opciones_seguimiento.eq(1).prop("checked", true);
+        }
+
+        let dias_semana = alarma_seleccionada.frecuencia.split(", ");
+        $("input[type='checkbox'][name='dias_frecuencia']").prop("checked", false);
+        for(let dia of dias_semana){
+            $("input[type='checkbox'][name='"+dia+"']").prop("checked", true);
+        }
+
+
+        let lista_tareas_alarma = $("#lista_tareas_alarma");
+        lista_tareas_alarma.empty();
+        for(let id of alarma_seleccionada.tareas_asociadas){
+            let tarea_seleccionada = tareas[id-1];
+            let nuevo_div = $("<div></div>").addClass("tarea_card alarma");
+            nuevo_div.append("<ul></ul>");
+            let ul = nuevo_div.find("ul");
+            ul.append("<li>"+tarea_seleccionada.nombre+"</li>");
+            ul.append("<li>"+tarea_seleccionada.horas+":"+tarea_seleccionada.minutos+"</li>");
+            nuevo_div.append(ul);
+            $("#lista_tareas_alarma").append(nuevo_div);
+        }
 
         $("input[name='nombre_alarma']").val(alarma_seleccionada.nombre);
         $("input[name='hora_inicio']").val(alarma_seleccionada.hora);
@@ -312,10 +341,133 @@ $(document).ready(function() {
         $("textarea[name='descripcion_alarma']").val(alarma_seleccionada.descripcion);
         $("input[name='fecha_activacion']").val(alarma_seleccionada.fecha_activacion);
         $("input[name='fecha_suspension']").val(alarma_seleccionada.fecha_suspension);
-        $("input[name='seguimiento_tareas']").prop("checked", alarma_seleccionada.seguimiento_tareas);
-        $("input[name='frecuencia_alarma']").val(alarma_seleccionada.frecuencia);
     }
 
+    function crear_alarma(){
+        let nombre = $("input[name='nombre_alarma']").val();
+        let hora = $("input[name='hora_inicio']").val();
+        let minuto = $("input[name='minuto_inicio']").val();
+        let periodo = $("#boton_am_pm").hasClass("am") ? "AM" : "PM";
+        let descripcion = $("textarea[name='descripcion_alarma']").val();
+        let fecha_activacion = $("input[name='fecha_activacion']").val();
+        let fecha_suspension = $("input[name='fecha_suspension']").val();
+        let modo_apagado = $("input[type='radio'][name='modo_apagado']:checked").val();
+        let seguimiento_tareas = $("input[type='radio'][name='opcion_seguir_tareas']:checked").val() == "si" ? true : false;
+        let frecuencia = [];
+        let frecuencias_marcadas = $("input[type='checkbox']:checked");
+        for(let i=0; i<frecuencias_marcadas.length; i++){
+            frecuencia.push($(frecuencias_marcadas[i]).attr('name'));
+        }
+        frecuencia = frecuencia.join(", ");
+        let activa = $(".switch img").hasClass("on") ? true : false;
+        let tareas_asociadas = [];
+        $("#lista_tareas_alarma .tarea_card.alarma").each(function(){
+            let nombre_tarea = $(this).find("ul li:first").text();
+            for(let i=0; i<tareas.length; i++){
+                if(tareas[i].nombre == nombre_tarea){
+                    tareas_asociadas.push(i+1);
+                }
+            }
+        });
+
+        let nueva_alarma = new Alarma(nombre, hora, minuto, periodo, descripcion, fecha_activacion, fecha_suspension, modo_apagado, seguimiento_tareas, frecuencia, activa, tareas_asociadas);
+        alarmas.push(nueva_alarma);
+        ir_alarmas();
+        limpiar_formulario_alarma();
+    }
+
+    function guardar_cambios_alarma(){
+        for (let alarma of alarmas){
+            if(alarma.nombre == alarma_activa){
+                alarma.nombre = $("input[name='nombre_alarma']").val();
+                alarma.hora = $("input[name='hora_inicio']").val();
+                alarma.minuto = $("input[name='minuto_inicio']").val();
+                alarma.periodo = $("#boton_am_pm").hasClass("am") ? "AM" : "PM";
+                alarma.descripcion = $("textarea[name='descripcion_alarma']").val();
+                alarma.fecha_activacion = $("input[name='fecha_activacion']").val();
+                alarma.fecha_suspension = $("input[name='fecha_suspension']").val();
+                alarma.modo_apagado = $("input[type='radio'][name='modo_apagado']:checked").val();
+                alarma.seguimiento_tareas = $("input[type='radio'][name='opcion_seguir_tareas']:checked").val() == "si" ? true : false;
+                let frecuencia = [];
+                let frecuencias_marcadas = $("input[type='checkbox']:checked");
+                for(let i=0; i<frecuencias_marcadas.length; i++){
+                    frecuencia.push($(frecuencias_marcadas[i]).attr('name'));
+                }
+                alarma.frecuencia = frecuencia.join(", ");
+                alarma.activa = $(".switch img").hasClass("on") ? true : false;
+                let tareas_asociadas = [];
+                $("#lista_tareas_alarma .tarea_card.alarma").each(function(){
+                    let nombre_tarea = $(this).find("ul li:first").text();
+                    for(let i=0; i<tareas.length; i++){
+                        if(tareas[i].nombre == nombre_tarea){
+                            tareas_asociadas.push(i+1);
+                        }
+                    }
+                });
+                alarma.tareas_asociadas = tareas_asociadas;
+            }
+        }
+        limpiar_formulario_alarma();
+        ir_alarmas();
+    }
+
+    function limpiar_formulario_alarma(){
+        $("input[name='nombre_alarma']").val("");
+        $("input[name='hora_inicio']").val("");
+        $("input[name='minuto_inicio']").val("");
+        $("#boton_am_pm").removeClass("pm").addClass("am");
+        $("textarea[name='descripcion_alarma']").val("");
+        $("input[name='fecha_activacion']").val("");
+        $("input[name='fecha_suspension']").val("");
+        $("input[type='radio'][name='modo_apagado']").prop("checked", false);
+        $("input[type='radio'][name='opcion_seguir_tareas']").prop("checked", false);
+        $("input[type='checkbox']").prop("checked", false);
+        $(".switch img").removeClass("off").addClass("on");
+        $("h1").text("CREAR ALARMA");
+        $("#lista_tareas_alarma").empty();
+        $("#btn_guardar_alarma").show();
+        $("#btn_editar_alarma").hide();
+        $("#btn_eliminar_alarma").hide();
+
+    }
+
+    function cancelar_creacion_alarma(){
+        limpiar_formulario_alarma();
+        ir_alarmas();
+    }
+
+    function eliminar_alarma(){
+        for(let alarma of alarmas){
+            if(alarma.nombre == alarma_activa){
+                alarmas.splice(alarmas.indexOf(alarma), 1);
+                break;
+            }
+        }
+        limpiar_formulario_alarma();
+        ir_alarmas();
+    }
+
+    function cambiar_estadistica(){
+        $("#modal_cambiar_estadistica").addClass("active");
+        $("#lista_estadisticas_modal").empty();
+        for(let alarma of alarmas){
+            let nuevo_div = $("<div></div>").addClass("alarm_card modal");
+            let img = $("<div>"+alarma.nombre.charAt(0)+"</div>").addClass("alarm_image");
+            if(!alarma.activa){
+                img.addClass("inactive");
+            }
+            let ul = $("<ul></ul>");
+            ul.append("<li>"+alarma.nombre+"</li>");
+            ul.append("<li>"+alarma.frecuencia+"</li>");
+            nuevo_div.append(img);
+            nuevo_div.append(ul);
+            $("#lista_estadisticas_modal").append(nuevo_div);
+        }
+    }
+
+    function cancelar_cambio_estadistica(){
+        $("#modal_cambiar_estadistica").removeClass("active");
+    }
 
     initialize();
     $("#pantalla_inicio a").on("click", mostrar_modal_google);
@@ -339,6 +491,12 @@ $(document).ready(function() {
     $("#btn_agregar_tarea").on("click", mostrar_modal_agregar_tareas);
     $("#mst_cancelar").on("click", ocultar_modal_agregar_tareas);
     $("#btn_eliminar_tarea").on("click", remover_tarea_de_alarma);
+    $("#btn_guardar_alarma").on("click", crear_alarma);
+    $("#btn_cancelar").on("click", cancelar_creacion_alarma);
+    $("#btn_editar_alarma").on("click", guardar_cambios_alarma);
+    $("#btn_eliminar_alarma").on("click", eliminar_alarma);
+    $("#cambiar_estadistica").on("click", cambiar_estadistica);
+    $("#mce_cancelar").on("click", cancelar_cambio_estadistica);
 
     $(document).on("click", ".tarea_card.principal", function(){
         let card = $(this);
@@ -355,11 +513,18 @@ $(document).ready(function() {
         seleccionar_alarma(card);
     });
 
-    $(document).on("click", ".alarm_card", function(){
+    $(document).on("click", ".alarm_card.principal", function(){
         let card = $(this);
         let nombre_alarma = card.find("ul li:first").text();
         alarma_activa = nombre_alarma;
         editar_alarma();
+    });
+
+    $(document).on("click", ".alarm_card.modal", function(){
+        let card = $(this);
+        let nombre_alarma = card.find("ul li:first").text();
+        $("#nombre_estadistica").text(nombre_alarma);
+        cancelar_cambio_estadistica();
     });
 
 });
